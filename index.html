@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lector — Your path to academic success</title>
+<meta name="description" content="Lector — the all-in-one study assistant for international students. Record lectures, get auto notes with translation, review with quizzes, and study with friends." />
+
+<!-- Font: Open Sans -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --bg:#FFE9BC;          /* page background */
+    --navy:#405479;        /* H1 / H2 / headings */
+    --navy-soft:#586a8c;   /* body text */
+    --orange:#F4C24B;      /* app accent (Start Recording) */
+    --orange-deep:#EBB23A;
+    --blue:#3E7BFA;        /* Connect with Zoom blue */
+    --card:#FFFDF8;
+    --cream-tile:#FAE7BD;  /* matches mascot crop bg */
+    --radius:22px;
+    --shadow:0 18px 40px rgba(64,84,121,.16);
+    --shadow-lg:0 30px 70px rgba(64,84,121,.26);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;overflow-x:hidden;}
+  body{
+    font-family:'Open Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    color:var(--navy);
+    background-color:var(--bg);
+    /* faint notebook grid, like the app */
+    background-image:
+      linear-gradient(rgba(64,84,121,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(64,84,121,.06) 1px, transparent 1px);
+    background-size:30px 30px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2{color:var(--navy);}
+  h1{font-weight:800;letter-spacing:-.01em;}   /* H1 — bold */
+  h2{font-weight:400;}                          /* H2 — not bold */
+  a{text-decoration:none;color:inherit;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- Nav ---------- */
+  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(120%) blur(6px);
+    background:rgba(255,233,188,.72);border-bottom:1px solid rgba(64,84,121,.08);}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:74px;}
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand .mark{width:44px;height:44px;border-radius:13px;background:var(--cream-tile);
+    box-shadow:var(--shadow);overflow:hidden;display:grid;place-items:center;flex:none;
+    border:1px solid rgba(64,84,121,.08);}
+  .brand .mark img{width:120%;height:120%;object-fit:contain;}
+  .brand b{font-size:24px;font-weight:800;color:var(--navy);letter-spacing:-.01em;}
+  .nav-links{display:flex;align-items:center;gap:30px;}
+  .nav-links a{font-weight:600;color:var(--navy-soft);font-size:15px;}
+  .nav-links a:hover{color:var(--navy);}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;border:none;cursor:pointer;
+    border-radius:999px;padding:13px 24px;font-size:15px;font-family:inherit;transition:transform .15s ease, box-shadow .15s ease;}
+  .btn-primary{background:var(--navy);color:#fff;box-shadow:0 10px 22px rgba(64,84,121,.30);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(64,84,121,.38);}
+  .nav .btn{padding:11px 22px;}
+
+  /* ---------- Hero ---------- */
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;
+    padding:64px 0 70px;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(64,84,121,.12);
+    color:var(--navy);font-weight:700;font-size:13px;letter-spacing:.02em;border-radius:999px;
+    padding:7px 14px;box-shadow:var(--shadow);}
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--orange);}
+  h1.title{font-size:clamp(54px,7vw,88px);line-height:.98;margin:22px 0 14px;}
+  .tagline{font-size:clamp(20px,2.4vw,29px);color:var(--navy);font-weight:400;max-width:18ch;}
+  .lead{margin-top:18px;color:var(--navy-soft);font-size:18px;max-width:46ch;}
+
+  .features{list-style:none;margin:26px 0 30px;display:grid;gap:13px;}
+  .features li{display:flex;align-items:flex-start;gap:12px;font-size:17px;color:var(--navy);font-weight:600;}
+  .features .tick{flex:none;width:26px;height:26px;border-radius:8px;background:var(--orange);
+    display:grid;place-items:center;margin-top:1px;box-shadow:0 4px 10px rgba(235,178,58,.45);}
+  .features .tick svg{width:15px;height:15px;}
+  .features li span.t{font-weight:400;color:var(--navy-soft);}
+
+  .stores{display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+  .stores a{transition:transform .15s ease, filter .15s ease;}
+  .stores a:hover{transform:translateY(-2px);}
+  .stores img{height:56px;width:auto;border-radius:11px;}
+  .rating{display:flex;align-items:center;gap:10px;margin-top:18px;color:var(--navy-soft);font-size:14px;font-weight:600;}
+  .stars{color:var(--orange-deep);letter-spacing:2px;font-size:16px;}
+
+  /* ---------- Phone ---------- */
+  .hero-left,.hero-right{min-width:0;max-width:100%;}
+  .hero-right{position:relative;display:grid;place-items:center;}
+  .blob{position:absolute;width:min(520px,90vw);height:min(520px,90vw);border-radius:50%;
+    background:radial-gradient(circle at 50% 40%, rgba(244,194,75,.45), rgba(244,194,75,0) 62%);
+    filter:blur(6px);z-index:0;}
+  .device{position:relative;z-index:2;width:min(330px,82vw);background:#15161B;border-radius:46px;
+    padding:13px;box-shadow:var(--shadow-lg);border:1px solid #2c2d34;}
+  .device::before{content:"";position:absolute;top:13px;left:50%;transform:translateX(-50%);
+    width:42%;height:26px;background:#15161B;border-radius:0 0 16px 16px;z-index:3;}
+  .device img{width:100%;border-radius:34px;display:block;}
+  /* Pre-rendered angled iPhone mockup (replaces the CSS device frame) */
+  .phone-mockup{position:relative;z-index:2;width:min(470px,94vw);height:auto;display:block;
+    filter:drop-shadow(0 30px 44px rgba(64,84,121,.22));}
+  .chip{position:absolute;z-index:4;background:#fff;border-radius:16px;box-shadow:var(--shadow-lg);
+    padding:12px 16px;display:flex;align-items:center;gap:10px;font-weight:700;color:var(--navy);font-size:14px;
+    border:1px solid rgba(64,84,121,.06);}
+  .chip .ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:16px;}
+  .chip.one{top:54px;left:-26px;}
+  .chip.two{bottom:70px;right:-22px;}
+  .chip.one .ic{background:#FFF1CE;}
+  .chip.two .ic{background:#E5EEFF;}
+
+  /* ---------- Feature cards ---------- */
+  .section{padding:34px 0 14px;}
+  .section-head{text-align:center;max-width:640px;margin:0 auto 38px;}
+  .section-head h2{font-size:clamp(30px,4vw,42px);line-height:1.12;}
+  .section-head p{color:var(--navy-soft);font-size:18px;margin-top:12px;}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .card{background:var(--card);border:1px solid rgba(64,84,121,.08);border-radius:20px;padding:26px 22px;
+    box-shadow:var(--shadow);transition:transform .18s ease, box-shadow .18s ease;}
+  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);}
+  .card .emoji{width:56px;height:56px;border-radius:15px;display:grid;place-items:center;font-size:27px;
+    background:#FFF3D6;margin-bottom:16px;}
+  .card h3{font-size:19px;font-weight:700;color:var(--navy);margin-bottom:7px;}
+  .card p{color:var(--navy-soft);font-size:15px;}
+
+  /* ---------- CTA band ---------- */
+  .cta{margin:64px 0 70px;background:linear-gradient(135deg,rgba(70,89,128,.22),rgba(70,89,128,.07));border:1px solid rgba(64,84,121,.12);
+    border-radius:30px;padding:48px 40px;display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;}
+  .cta h2{font-size:clamp(26px,3.2vw,36px);font-weight:400;color:var(--navy);}
+  .cta h2 b{font-weight:800;}
+  .cta .stores img{height:58px;}
+  .cta-mascot{display:flex;align-items:center;gap:18px;}
+  .cta-mascot img{width:84px;height:auto;}
+
+  /* ---------- Footer ---------- */
+  footer{border-top:1px solid rgba(64,84,121,.12);padding:30px 0;}
+  .foot{display:flex;align-items:center;justify-content:space-between;gap:16px;color:var(--navy-soft);font-size:14px;flex-wrap:wrap;}
+  .foot .brand b{font-size:19px;}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:920px){
+    .hero{grid-template-columns:1fr;text-align:center;gap:30px;padding:42px 0 50px;}
+    .tagline,.lead{max-width:none;margin-left:auto;margin-right:auto;}
+    .features{max-width:430px;margin-left:auto;margin-right:auto;text-align:left;}
+    .stores,.rating{justify-content:center;}
+    .hero-right{order:-1;}
+    .cards{grid-template-columns:repeat(2,1fr);}
+    .cta{grid-template-columns:1fr;text-align:center;justify-items:center;}
+  }
+  @media (max-width:560px){
+    .nav-links{display:none;}
+    .nav .btn{padding:10px 16px;font-size:13.5px;}
+    .brand b{font-size:21px;}
+    .cards{grid-template-columns:1fr;}
+    .chip.one{left:4px;} .chip.two{right:4px;} .chip{font-size:13px;padding:10px 13px;}
+    .features{max-width:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <span class="mark"><img src="assets/mascot.png" alt="Lector cat logo" /></span>
+      <b>Lector</b>
+    </div>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#download">Download</a>
+    </nav>
+    <a href="#download" class="btn btn-primary">Get the app</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="wrap hero">
+    <div class="hero-left">
+      <span class="eyebrow"><span class="dot"></span> For international students</span>
+      <h1 class="title">Lector</h1>
+      <h2 class="tagline">Your path to academic success.</h2>
+      <p class="lead">Record any lecture with one tap. Lector writes the notes, translates the hard parts, and turns them into quizzes — so you can focus on understanding, not scribbling.</p>
+
+      <ul class="features">
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            One button to record lectures</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Notes create themselves — translated &amp; highlighted</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Quizzes that help you memorize</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Share knowledge with classmates</li>
+      </ul>
+
+      <div class="stores" id="download">
+        <a href="#" aria-label="Download on the App Store"><img src="assets/app-store.png" alt="Download on the App Store" /></a>
+        <a href="#" aria-label="Get it on Google Play"><img src="assets/google-play.png" alt="Get it on Google Play" /></a>
+      </div>
+      <div class="rating"><span class="stars">★★★★★</span> Loved by students • Free to start</div>
+    </div>
+
+    <div class="hero-right">
+      <div class="blob"></div>
+      <img class="phone-mockup" src="assets/chrome_cPMf2jithH-left.png" alt="Lector app home screen on an iPhone" />
+      <div class="chip one"><span class="ic">🎙️</span> One-tap recording</div>
+      <div class="chip two"><span class="ic">🐱</span> 2,500 pts</div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="wrap section" id="features">
+    <div class="section-head">
+      <h2>Everything for studying — <b style="font-weight:800">in one app</b></h2>
+      <p>No more juggling a recorder, a translator, notes and group chats. Lector brings the whole lecture workflow together.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="emoji">🎙️</div>
+        <h3>Simplicity</h3>
+        <p>Tap once to record the lecture — in class or straight from a Zoom call.</p>
+      </div>
+      <div class="card">
+        <div class="emoji">✨</div>
+        <h3>Automation</h3>
+        <p>Clean notes write themselves, with translation and key terms highlighted.</p>
+      </div>
+      <div class="card">
+        <div class="emoji">🧠</div>
+        <h3>Preparation</h3>
+        <p>Auto-generated quizzes turn each lecture into easy exam revision.</p>
+      </div>
+      <div class="card">
+        <div class="emoji">👥</div>
+        <h3>Community</h3>
+        <p>Share notes and catch up with classmates when you miss a class.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="wrap section" id="how">
+    <div class="section-head">
+      <h2>From lecture to revision in <b style="font-weight:800">three steps</b></h2>
+    </div>
+    <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+      <div class="card"><div class="emoji">1️⃣</div><h3>Record</h3><p>Open Lector and hit Start Recording — or connect with Zoom for online lectures.</p></div>
+      <div class="card"><div class="emoji">2️⃣</div><h3>Get notes</h3><p>Lector transcribes, structures and translates everything into tidy notes.</p></div>
+      <div class="card"><div class="emoji">3️⃣</div><h3>Review</h3><p>Practice with quizzes and share with friends before the exam.</p></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="wrap">
+    <div class="cta">
+      <div class="cta-mascot">
+        <img src="assets/mascot.png" alt="Lector graduate cat" />
+        <h2>Start learning more effectively <b>today.</b></h2>
+      </div>
+      <div class="stores">
+        <a href="#" aria-label="Download on the App Store"><img src="assets/app-store.png" alt="Download on the App Store" /></a>
+        <a href="#" aria-label="Get it on Google Play"><img src="assets/google-play.png" alt="Get it on Google Play" /></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div class="brand"><span class="mark" style="width:34px;height:34px;border-radius:10px"><img src="assets/mascot.png" alt=""/></span> <b>Lector</b></div>
+    <span>© 2026 Lector. Your path to academic success.</span>
+    <span>Made for international students 🎓</span>
+  </div>
+</footer>
+
+</body>
+</html>
